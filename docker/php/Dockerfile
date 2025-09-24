@@ -8,5 +8,6 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 COPY docker/php/php.ini $PHP_INI_DIR/conf.d/custom.ini
 COPY src/ /var/www/html
+COPY docker/nginx/conf.d /etc/nginx/conf.d
 
 CMD ["php-fpm"]
