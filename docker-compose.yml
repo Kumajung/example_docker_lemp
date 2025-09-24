@@ -13,12 +13,13 @@ services:
   nginx:
     image: nginx:1.27-alpine
     ports:
-      - "${HTTP_PORT:-8090}:80"
+      - "${HTTP_PORT:-8080}:80"
+    depends_on:
+      - php
     volumes:
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
-      - ./src:/var/www/html:ro
-
-
+      - ${NGINX_CONF_PATH:-./docker/nginx/conf.d}:/etc/nginx/conf.d:ro
+      - ${APP_SOURCE:-./src}:/var/www/html:ro
+      
 
   db:
     image: mysql:${MYSQL_VERSION:-8.0}
