@@ -1,10 +1,21 @@
 version: "3.8"
 
 services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+    networks:
+      - app-network
+
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile       # ของ PHP-FPM
     volumes:
       - ./src:/var/www/html
     expose:
@@ -12,18 +23,7 @@ services:
     networks:
       - app-network
 
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "8080:80"
-    volumes:
-      - ./src:/var/www/html
-      - ./nginx/conf.d:/etc/nginx/conf.d:ro
-    depends_on:
-      - app
-    networks:
-      - app-network
-
 networks:
   app-network:
     driver: bridge
+
