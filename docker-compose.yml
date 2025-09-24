@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.8"
 
 services:
   php:
@@ -19,9 +19,6 @@ services:
       - "${HTTP_PORT:-8080}:80"
     depends_on:
       - php
-    volumes:
-      - ${NGINX_CONF_PATH:-./docker/nginx/conf.d}:/etc/nginx/conf.d:ro
-      - ${APP_SOURCE:-./src}:/var/www/html:ro
 
   db:
     image: mysql:${MYSQL_VERSION:-8.0}
