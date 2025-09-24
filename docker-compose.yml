@@ -19,6 +19,7 @@ services:
     volumes:
       - ${NGINX_CONF_PATH:-./docker/nginx/conf.d}:/etc/nginx/conf.d:ro
       - ${APP_SOURCE:-./src}:/var/www/html:ro
+      - ./logs/nginx:/var/log/nginx
 
   db:
     image: mysql:${MYSQL_VERSION:-8.0}
@@ -42,4 +43,3 @@ services:
 
 volumes:
   db_data:
-  app_code:
